@@ -3,15 +3,15 @@
       "scripts": [ "bootstrap/jquery.min.js", "background.js" ]
    },
    "browser_action": {
-      "default_icon": "ruyo.net.48.png",
+      "default_icon": "signinss.48.png",
       "default_popup": "popup.html",
       "default_title": "SS一键签到"
    },
    "description": "一键签到各大SS站点",
    "icons": {
-      "128": "ruyo.net.128.png",
-      "16": "ruyo.net.16.png",
-      "48": "ruyo.net.48.png"
+      "128": "signinss.128.png",
+      "16": "signinss.16.png",
+      "48": "signinss.48.png"
    },
    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt5jUL6knU/bqkWK+t548LN3/PlVaQeQ0rjlWwiKgWz29bOSb2x/KIkydJG8xgcwpTwqMEMm8s6bsDpRSaz6X0O+sZc8gInNKOa6hgRnCi5pS+geV/rktIAlIeL7wPjLx3zs9LDkcERyMCFRCDcRvN1TFStatiMHznYOnbHHAh69N23w7QSK+Bikp74kZ5q4swrywmTZ9s/QuHuYtP6gja0NHvBlSFD3BSEGghmr7d4FnJ2mQdc1OObimzNk8z7+/xfmVCiV7+1d+bHfGu9Y8SwWXL7TL/GMWiX/kUC7sTbsPxcZB3hrXNEsbdQo7RKeuPYRiDujj36OklRVPfdAmgQIDAQAB",
    "manifest_version": 2,
