@@ -7,6 +7,7 @@
 	}
 	$(function() {
 		initTable();
+        initUpdateTime();
 		$(".btn-default").click(function() {
 			var ssList = [];
 			chrome.tabs.query({
@@ -55,6 +56,8 @@
 				for (var i = 0; i < _cache.data.length; i++) {
 					REQ(_cache.data[i].webUrl, purl[_cache.data[i].vc], _cache.data[i].cookies)
 				}
+                setLastestTime();
+                initUpdateTime();
 			}
 		});
 		$(".btn-danger").click(function() {
@@ -109,6 +112,12 @@
 	function getCookieList(name) {
 		return JSON.parse(localStorage.getItem(name))
 	}
+	function setLastestTime() {
+		localStorage.setItem('signin-time', new Date().toLocaleString('zh'))
+	}
+	function getLastestTime() {
+		return localStorage.getItem('signin-time')
+	}
 	function delCookieList(name) {
 		localStorage[name] = null
 	}
@@ -133,6 +142,10 @@
 		_cache.data.push(obj);
 		addCookieList("ccc", _cache)
 	}
+    function initUpdateTime() {
+		var _time = getLastestTime();
+		$(".J-lastest-update").html(_time);
+    }
 	function initTable() {
 		$("#ruyo_table tbody").empty();
 		var _data = getCacheData().data;
