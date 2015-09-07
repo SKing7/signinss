@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>SS一键签到</title>
+    <meta charset="utf-8">
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <br />
+        <button class="btn btn-default btn-xs">记录当前</button>
+        <button class="btn btn-success btn-xs">一键签到</button>
+        <button class="btn btn-danger btn-xs">清空列表</button>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default"  style="width:600px;">
+                    <div class="panel-heading">
+                        已记录SS的站点
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="ruyo_table" >
+                            <thead>
+                                <tr>
+                                    <th>域名</th>
+                                    <th>账户</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="well well-sm">该工具支持使用旧版以及部分新版ss-panel的站点，支持翻墙。</div>
+            </div>
+        </div>
+    </div>
+    <script src="bootstrap/jquery.min.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="bootstrap/jquery.cookie.js"></script>
+    <script src="request.js"></script>
+    <script src="ruyo.js"></script>
+</body>
+</html>
