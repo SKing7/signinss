@@ -16,6 +16,12 @@
 				currentWindow: true
 			},
 			function(d) {
+                var url = d && d[0].url;
+                var vc;
+                //fqproxy.com 
+                //if (url && url.indexOf('fqproxy.com/') > 0) {
+                //    vc = 3;
+                //}
 				getCookies(d[0].url, "user_name", function(c) {
 					if (c) {
 						ssList.push(c)
@@ -40,7 +46,7 @@
 										"webUrl": (c3 || c).domain,
 										"webUserName": (c3 || c).value,
 										"cookies": ssList,
-										"vc": c ? "0": "1"
+										"vc": vc || (c ? 0: 1)
 									});
 									initTable()
 								})
@@ -51,7 +57,7 @@
 			})
 		});
 		$(".btn-success").click(function() {
-			var purl = ["/user/docheckin.php", "/user/_checkin.php", "/user/checkin"];
+			var purl = ["/user/docheckin.php", "/user/_checkin.php", "/user/checkin", '/user/login.php'];
 			if (_cache && _cache.data && _cache.data.length > 0) {
 				for (var i = 0; i < _cache.data.length; i++) {
 					REQ(_cache.data[i], purl[_cache.data[i].vc], _cache.data[i].cookies)
@@ -81,7 +87,7 @@
             }catch (e) {
                 bodyObj = {msg: 'parseError'};
             }
-            document.getElementById(webObj.webUrl + webObj.webUserName).innerHTML = "<span color='green'>"+ bodyObj.msg + "</span>"
+            document.getElementById(getId(webObj)).innerHTML = "<span color='green'>"+ bodyObj.msg + "</span>"
 		})
 	}
 	function getCookieStr(cookies) {
@@ -103,8 +109,8 @@
 		})
 	}
 	function addTableRow(obj) {
-		$("#ruyo_table tbody").append("<tr><td scope='row'>" + obj.webUrl + "</td><td>" + obj.webUserName + "</td><td id='" + obj.webUrl + obj.webUserName + "'>----</td></tr>")
-	}
+		$("#ruyo_table tbody").append("<tr><td scope='row'>" + obj.webUrl + "</td><td>" + obj.webUserName + "</td><td id='" + getId(obj) + "'>----</td></tr>")
+	obj}
 	function addCookieList(name, obj) {
 		localStorage.removeItem(name);
 		localStorage.setItem(name, JSON.stringify(obj))
@@ -142,6 +148,9 @@
 		_cache.data.push(obj);
 		addCookieList("ccc", _cache)
 	}
+    function getId(obj) {
+        return 'id_' + obj.webUrl + '_' + obj.webUserName;
+    }
     function initUpdateTime() {
 		var _time = getLastestTime();
         var dTime = new Date(+_time);
