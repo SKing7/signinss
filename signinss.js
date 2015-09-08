@@ -54,7 +54,7 @@
 			var purl = ["/user/docheckin.php", "/user/_checkin.php", "/user/checkin"];
 			if (_cache && _cache.data && _cache.data.length > 0) {
 				for (var i = 0; i < _cache.data.length; i++) {
-					REQ(_cache.data[i].webUrl, purl[_cache.data[i].vc], _cache.data[i].cookies)
+					REQ(_cache.data[i], purl[_cache.data[i].vc], _cache.data[i].cookies)
 				}
                 setLastestTime();
                 initUpdateTime();
@@ -73,15 +73,15 @@
 		});
 		return false
 	});
-	function REQ(webUrl, purl, cookie) {
-		request("http://" + webUrl + purl, getCookieStr(cookie), function(body) {
+	function REQ(webObj, purl, cookie) {
+		request("http://" + webObj.webUrl + purl, getCookieStr(cookie), function(body) {
             var bodyObj;
             try {
                 bodyObj = JSON.parse(body || '{}');
             }catch (e) {
                 bodyObj = {msg: 'parseError'};
             }
-             document.getElementById(webUrl).innerHTML = "<span color='green'>"+ bodyObj.msg + "</span>"
+            document.getElementById(webObj.webUrl + webObj.webUserName).innerHTML = "<span color='green'>"+ bodyObj.msg + "</span>"
 		})
 	}
 	function getCookieStr(cookies) {
@@ -103,7 +103,7 @@
 		})
 	}
 	function addTableRow(obj) {
-		$("#ruyo_table tbody").append("<tr><td scope='row'>" + obj.webUrl + "</td><td>" + obj.webUserName + "</td><td id='" + obj.webUrl + "'>----</td></tr>")
+		$("#ruyo_table tbody").append("<tr><td scope='row'>" + obj.webUrl + "</td><td>" + obj.webUserName + "</td><td id='" + obj.webUrl + obj.webUserName + "'>----</td></tr>")
 	}
 	function addCookieList(name, obj) {
 		localStorage.removeItem(name);
@@ -113,7 +113,7 @@
 		return JSON.parse(localStorage.getItem(name))
 	}
 	function setLastestTime() {
-		localStorage.setItem('signin-time', new Date().toLocaleString('zh'))
+		localStorage.setItem('signin-time', new Date().getTime())
 	}
 	function getLastestTime() {
 		return localStorage.getItem('signin-time')
@@ -144,7 +144,11 @@
 	}
     function initUpdateTime() {
 		var _time = getLastestTime();
-		$(".J-lastest-update").html(_time);
+        var dTime = new Date(+_time);
+        var dNow = new Date();
+
+        var diff = parseInt((dNow.getTime() - dTime.getTime()) / (10 * 60 * 60), 10) / 100;
+		$(".J-lastest-update").html('<p>距上次更新:' + diff + '小时</p><p>上次更新:' + dTime.toLocaleString('zh') + '</p>');
     }
 	function initTable() {
 		$("#ruyo_table tbody").empty();
