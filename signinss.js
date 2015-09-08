@@ -82,12 +82,14 @@
 	function REQ(webObj, purl, cookie) {
 		request("http://" + webObj.webUrl + purl, getCookieStr(cookie), function(body) {
             var bodyObj;
+            var id = getId(webObj);
             try {
-                bodyObj = JSON.parse(body || '{}');
+                bodyObj = JSON.parse(body || '{"msg": "ERROR"}');
             }catch (e) {
-                bodyObj = {msg: 'parseError'};
+                bodyObj = {msg: 'ERROR'};
             }
-            document.getElementById(getId(webObj)).innerHTML = "<span color='green'>"+ bodyObj.msg + "</span>"
+		    localStorage.setItem(id, bodyObj.msg)
+            document.getElementById(id).innerHTML = "<span style='color:green'>"+ bodyObj.msg + "</span>"
 		})
 	}
 	function getCookieStr(cookies) {
@@ -109,8 +111,12 @@
 		})
 	}
 	function addTableRow(obj) {
-		$("#ruyo_table tbody").append("<tr><td scope='row'>" + obj.webUrl + "</td><td>" + obj.webUserName + "</td><td id='" + getId(obj) + "'>----</td></tr>")
-	obj}
+        var id  = getId(obj);
+        var statusStr = localStorage.getItem(id);
+		$("#ruyo_table tbody").append('<tr><td scope="row"><a href="http://' +
+                obj.webUrl + '/user/index.php">' + obj.webUrl + "</a></td><td>" + obj.webUserName +
+                "</td><td id='" + id + "'>" + (statusStr || 'N/A')+ "</td></tr>")
+	}
 	function addCookieList(name, obj) {
 		localStorage.removeItem(name);
 		localStorage.setItem(name, JSON.stringify(obj))
