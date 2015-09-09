@@ -117,7 +117,7 @@
                 '<a href="http://' + obj.webUrl + '/user/index.php">' + obj.webUrl + '</a></td>' +
                 '<td>' + obj.webUserName + '</td>' +
                 '<td id="' + id + '">' + (statusStr || 'N/A') + '</td>' +
-                '<td><span style="cursor:pointer;color:#39c" class="J-op-remove" data-index="' + index + '">删除</span></td>' +
+                '<td><span style="cursor:pointer;color:#39c;white-space: nowrap;" class="J-op-remove" data-index="' + index + '">删除</span></td>' +
                 '</tr>');
 
         $('.J-op-remove').click(function () {
