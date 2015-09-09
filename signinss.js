@@ -110,12 +110,25 @@
 			callback(cookie)
 		})
 	}
-	function addTableRow(obj) {
+	function addTableRow(obj, index) {
         var id  = getId(obj);
         var statusStr = localStorage.getItem(id);
-		$("#ruyo_table tbody").append('<tr><td scope="row"><a href="http://' +
-                obj.webUrl + '/user/index.php">' + obj.webUrl + "</a></td><td>" + obj.webUserName +
-                "</td><td id='" + id + "'>" + (statusStr || 'N/A')+ "</td></tr>")
+		$("#ruyo_table tbody").append('<tr><td scope="row">' +
+                '<a href="http://' + obj.webUrl + '/user/index.php">' + obj.webUrl + '</a></td>' +
+                '<td>' + obj.webUserName + '</td>' +
+                '<td id="' + id + '">' + (statusStr || 'N/A') + '</td>' +
+                '<td><span style="cursor:pointer;color:#39c" class="J-op-remove" data-index="' + index + '">删除</span></td>' +
+                '</tr>');
+
+        $('.J-op-remove').click(function () {
+            var index = $(this).attr('data-index');;
+            var _data = getCacheData();
+            _data = _data.data || [];
+            _data.splice(+index, 1)
+            _cache.data = _data;
+            $(this).closest('tr').remove();
+		    addCookieList("ccc", _cache)
+        });
 	}
 	function addCookieList(name, obj) {
 		localStorage.removeItem(name);
@@ -170,7 +183,7 @@
 		var _data = getCacheData().data;
 		if (_data && _data.length > 0) {
 			for (var i = 0; i < _data.length; i++) {
-				addTableRow(_data[i])
+				addTableRow(_data[i], i)
 			}
 		}
 	}
