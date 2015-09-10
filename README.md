@@ -3,6 +3,7 @@
 
 #Usage
 在chrome extension中添加signinss.crx
+
 `mac版的chrome。目前已禁止安装非chrome store上的应用了，
 所以如要使用，需clone代码，然后在chrome中load unpacked extension选择根目录使用`
 
